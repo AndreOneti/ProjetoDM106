@@ -17,12 +17,14 @@ namespace ProjetoDM106.Controllers
         private ProjetoDM106Context db = new ProjetoDM106Context();
 
         // GET: api/Products
+        [Authorize]
         public IQueryable<Product> GetProducts()
         {
             return db.Products;
         }
 
         // GET: api/Products/5
+        [Authorize]
         [ResponseType(typeof(Product))]
         public IHttpActionResult GetProduct(int id)
         {
@@ -36,9 +38,11 @@ namespace ProjetoDM106.Controllers
         }
 
         // PUT: api/Products/5
+        [Authorize(Roles = "ADMIN")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProduct(int id, Product product)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -47,6 +51,25 @@ namespace ProjetoDM106.Controllers
             if (id != product.Id)
             {
                 return BadRequest();
+            }
+
+            foreach (var products in db.Products)
+            {
+                if (products.codigo == product.codigo)
+                {
+                    if (products.Id != product.Id)
+                    {
+                        return StatusCode(HttpStatusCode.Forbidden);
+                    }
+                }
+
+                if (products.modelo == product.modelo)
+                {
+                    if (products.Id != product.Id)
+                    {
+                        return StatusCode(HttpStatusCode.Forbidden);
+                    }
+                }
             }
 
             db.Entry(product).State = EntityState.Modified;
@@ -71,10 +94,22 @@ namespace ProjetoDM106.Controllers
         }
 
         // POST: api/Products
+        [Authorize(Roles = "ADMIN")]
         [ResponseType(typeof(Product))]
         public IHttpActionResult PostProduct(Product product)
         {
             if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Product productBody = db.Products.Find();
+            if (!productBody.Equals(product.codigo))
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!productBody.Equals(product.modelo))
             {
                 return BadRequest(ModelState);
             }
@@ -86,6 +121,7 @@ namespace ProjetoDM106.Controllers
         }
 
         // DELETE: api/Products/5
+        [Authorize(Roles = "ADMIN")]
         [ResponseType(typeof(Product))]
         public IHttpActionResult DeleteProduct(int id)
         {

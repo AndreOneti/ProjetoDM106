@@ -216,6 +216,18 @@
     <Compile Include="Migrations\201905200544220_AddProducts.Designer.cs">
       <DependentUpon>201905200544220_AddProducts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905220148496_AddProductVariableAndValidation.cs" />
+    <Compile Include="Migrations\201905220148496_AddProductVariableAndValidation.Designer.cs">
+      <DependentUpon>201905220148496_AddProductVariableAndValidation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905220156381_PermissionUpdate.cs" />
+    <Compile Include="Migrations\201905220156381_PermissionUpdate.Designer.cs">
+      <DependentUpon>201905220156381_PermissionUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905220211377_FixingValidation.cs" />
+    <Compile Include="Migrations\201905220211377_FixingValidation.Designer.cs">
+      <DependentUpon>201905220211377_FixingValidation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -319,6 +331,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905200544220_AddProducts.resx">
       <DependentUpon>201905200544220_AddProducts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905220148496_AddProductVariableAndValidation.resx">
+      <DependentUpon>201905220148496_AddProductVariableAndValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905220156381_PermissionUpdate.resx">
+      <DependentUpon>201905220156381_PermissionUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905220211377_FixingValidation.resx">
+      <DependentUpon>201905220211377_FixingValidation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

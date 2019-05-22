@@ -127,3 +127,6 @@ C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.pdb
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.AddProducts.resources
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.csproj.GenerateResource.cache
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.AddProductVariableAndValidation.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.PermissionUpdate.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.FixingValidation.resources
