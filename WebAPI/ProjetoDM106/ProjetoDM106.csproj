@@ -207,6 +207,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -228,10 +229,16 @@
     <Compile Include="Migrations\201905220211377_FixingValidation.Designer.cs">
       <DependentUpon>201905220211377_FixingValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905230324431_AddOrderAndOrderItem.cs" />
+    <Compile Include="Migrations\201905230324431_AddOrderAndOrderItem.Designer.cs">
+      <DependentUpon>201905230324431_AddOrderAndOrderItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProjetoDM106Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -340,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905220211377_FixingValidation.resx">
       <DependentUpon>201905220211377_FixingValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905230324431_AddOrderAndOrderItem.resx">
+      <DependentUpon>201905230324431_AddOrderAndOrderItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

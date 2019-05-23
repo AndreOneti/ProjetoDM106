@@ -53,26 +53,8 @@ namespace ProjetoDM106.Controllers
                 return BadRequest();
             }
 
-            foreach (var products in db.Products)
-            {
-                if (products.codigo == product.codigo)
-                {
-                    if (products.Id != product.Id)
-                    {
-                        return StatusCode(HttpStatusCode.Forbidden);
-                    }
-                }
-
-                if (products.modelo == product.modelo)
-                {
-                    if (products.Id != product.Id)
-                    {
-                        return StatusCode(HttpStatusCode.Forbidden);
-                    }
-                }
-            }
-
             db.Entry(product).State = EntityState.Modified;
+            
 
             try
             {
