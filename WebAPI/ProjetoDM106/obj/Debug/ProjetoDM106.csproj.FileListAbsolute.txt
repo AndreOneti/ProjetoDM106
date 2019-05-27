@@ -120,7 +120,6 @@ C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\bin\pt-br\Microsoft.Asp
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\bin\pt-br\Microsoft.AspNet.Identity.Owin.resources.dll
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\bin\pt-br\Microsoft.AspNet.Identity.EntityFramework.resources.dll
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\bin\pt-br\System.Web.Http.Owin.resources.dll
-C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.csprojAssemblyReference.cache
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.csproj.CoreCompileInputs.cache
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.csproj.CopyComplete
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.dll
@@ -131,3 +130,6 @@ C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.PermissionUpdate.resources
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.FixingValidation.resources
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.AddOrderAndOrderItem.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.OrderItemAndOrderUpdate.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.OrderUpdate.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.csprojAssemblyReference.cache

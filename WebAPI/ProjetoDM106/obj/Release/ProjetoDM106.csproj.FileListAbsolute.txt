@@ -131,3 +131,5 @@ C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Release\ProjetoDM10
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Release\ProjetoDM106.Migrations.PermissionUpdate.resources
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Release\ProjetoDM106.Migrations.FixingValidation.resources
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Release\ProjetoDM106.Migrations.AddOrderAndOrderItem.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Release\ProjetoDM106.Migrations.OrderItemAndOrderUpdate.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Release\ProjetoDM106.Migrations.OrderUpdate.resources

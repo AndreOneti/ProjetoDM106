@@ -9,6 +9,8 @@ namespace ProjetoDM106.Models
     {
         public int Id { get; set; }
 
+        public int TotalItens { get; set; }
+
         // Foreign Key
         public int ProductId { get; set; }
 

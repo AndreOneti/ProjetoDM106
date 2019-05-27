@@ -14,7 +14,17 @@ namespace ProjetoDM106.Models
 
         public int Id { get; set; }
 
-        public string userName { get; set; }
+        public string userEmail { get; set; }
+
+        public DateTime DateOrder { get; set; }
+
+        public DateTime DateDelivery { get; set; }
+
+        public string Status { get; set; }
+
+        public float ItemPrice { get; set; }
+
+        public float ItemWeight { get; set; }
 
         public decimal precoFrete { get; set; }
 

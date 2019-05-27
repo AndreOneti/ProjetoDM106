@@ -233,6 +233,14 @@
     <Compile Include="Migrations\201905230324431_AddOrderAndOrderItem.Designer.cs">
       <DependentUpon>201905230324431_AddOrderAndOrderItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905251904541_OrderItemAndOrderUpdate.cs" />
+    <Compile Include="Migrations\201905251904541_OrderItemAndOrderUpdate.Designer.cs">
+      <DependentUpon>201905251904541_OrderItemAndOrderUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905251955045_OrderUpdate.cs" />
+    <Compile Include="Migrations\201905251955045_OrderUpdate.Designer.cs">
+      <DependentUpon>201905251955045_OrderUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -350,6 +358,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905230324431_AddOrderAndOrderItem.resx">
       <DependentUpon>201905230324431_AddOrderAndOrderItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905251904541_OrderItemAndOrderUpdate.resx">
+      <DependentUpon>201905251904541_OrderItemAndOrderUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905251955045_OrderUpdate.resx">
+      <DependentUpon>201905251955045_OrderUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

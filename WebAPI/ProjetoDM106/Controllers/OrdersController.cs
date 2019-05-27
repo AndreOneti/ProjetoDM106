@@ -12,19 +12,34 @@ using ProjetoDM106.Models;
 
 namespace ProjetoDM106.Controllers
 {
+    [Authorize]
+    [RoutePrefix("api/orders")]
     public class OrdersController : ApiController
     {
         private ProjetoDM106Context db = new ProjetoDM106Context();
 
+        [ResponseType(typeof(Product))]
+        [HttpGet]
+        [Route("byemail")]
+        public IHttpActionResult GetProductByEmail(string email)
+        {
+            var product = db.Orders.Where(o => o.userEmail == email);
+            return Ok(product);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
+        }
+
         // GET: api/Orders
-        [Authorize]
+        [Authorize(Roles = "ADMIN")]
         public List<Order> GetOrders()
         {
             return db.Orders.Include(order => order.OrderItems).ToList();
         }
 
         // GET: api/Orders/5
-        [Authorize]
         [ResponseType(typeof(Order))]
         public IHttpActionResult GetOrder(int id)
         {
@@ -38,7 +53,6 @@ namespace ProjetoDM106.Controllers
         }
 
         // PUT: api/Orders/5
-        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutOrder(int id, Order order)
         {
@@ -74,7 +88,6 @@ namespace ProjetoDM106.Controllers
         }
 
         // POST: api/Orders
-        [Authorize]
         [ResponseType(typeof(Order))]
         public IHttpActionResult PostOrder(Order order)
         {
@@ -90,7 +103,6 @@ namespace ProjetoDM106.Controllers
         }
 
         // DELETE: api/Orders/5
-        [Authorize]
         [ResponseType(typeof(Order))]
         public IHttpActionResult DeleteOrder(int id)
         {
