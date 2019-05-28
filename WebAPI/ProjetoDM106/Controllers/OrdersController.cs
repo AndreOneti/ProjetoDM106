@@ -18,18 +18,19 @@ namespace ProjetoDM106.Controllers
     {
         private ProjetoDM106Context db = new ProjetoDM106Context();
 
+        [Authorize]
         [ResponseType(typeof(Product))]
         [HttpGet]
         [Route("byemail")]
         public IHttpActionResult GetProductByEmail(string email)
         {
-            var product = db.Orders.Where(o => o.userEmail == email);
-            return Ok(product);
-            if (product == null)
-            {
-                return NotFound();
+            if ((User.Identity.Name == email) || User.IsInRole("ADMIN")) {
+                var order = db.Orders.Where(o => o.userEmail == email).ToList();
+                return Ok(order);
             }
-            return Ok(product);
+            else {
+                return StatusCode(HttpStatusCode.Unauthorized);
+            }
         }
 
         // GET: api/Orders
@@ -95,6 +96,14 @@ namespace ProjetoDM106.Controllers
             {
                 return BadRequest(ModelState);
             }
+            order.Status = "novo";
+            order.ItemWeight = 0;
+            order.precoFrete = 0;
+            order.ItemPrice = 0;
+            order.DateOrder = new DateTime();
+            order.userEmail = User.Identity.Name;
+
+            return Ok(order);
 
             db.Orders.Add(order);
             db.SaveChanges();
@@ -106,16 +115,25 @@ namespace ProjetoDM106.Controllers
         [ResponseType(typeof(Order))]
         public IHttpActionResult DeleteOrder(int id)
         {
+            
             Order order = db.Orders.Find(id);
             if (order == null)
             {
                 return NotFound();
             }
 
-            db.Orders.Remove(order);
-            db.SaveChanges();
+            if ((User.Identity.Name == order.userEmail) || User.IsInRole("ADMIN"))
+            {
+                db.Orders.Remove(order);
+                db.SaveChanges();
 
-            return Ok(order);
+                return Ok(order);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.Unauthorized);
+            }
+
         }
 
         protected override void Dispose(bool disposing)
