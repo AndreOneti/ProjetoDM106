@@ -89,6 +89,7 @@ namespace ProjetoDM106.Controllers
         }
 
         // POST: api/Orders
+        [Authorize]
         [ResponseType(typeof(Order))]
         public IHttpActionResult PostOrder(Order order)
         {
@@ -96,14 +97,13 @@ namespace ProjetoDM106.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             order.Status = "novo";
             order.ItemWeight = 0;
             order.precoFrete = 0;
             order.ItemPrice = 0;
-            order.DateOrder = new DateTime();
+            order.DateOrder = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")).ToLocalTime();
             order.userEmail = User.Identity.Name;
-
-            return Ok(order);
 
             db.Orders.Add(order);
             db.SaveChanges();
