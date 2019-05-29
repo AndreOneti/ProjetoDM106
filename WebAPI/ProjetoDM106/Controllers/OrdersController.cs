@@ -111,6 +111,37 @@ namespace ProjetoDM106.Controllers
             return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
         }
 
+        // POST: api/Orders/5
+        [Authorize]
+        [ResponseType(typeof(Order))]
+        public IHttpActionResult PostOrderStatus(int id, Order order)
+        {
+
+            Order pedido = db.Orders.Find(id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            if ((User.Identity.Name == pedido.userEmail) || User.IsInRole("ADMIN"))
+            {
+               Order pedidoModificado = db.Orders.Find(id);
+                if (pedidoModificado.Status.Equals("cancelado")) {
+                    pedidoModificado.Status = "novo";
+                    return Ok(pedidoModificado);
+                }
+                else
+                {
+                    return StatusCode(HttpStatusCode.BadRequest);
+                }
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.Unauthorized);
+            }
+        }
+
         // DELETE: api/Orders/5
         [ResponseType(typeof(Order))]
         public IHttpActionResult DeleteOrder(int id)
