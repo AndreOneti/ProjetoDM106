@@ -18,6 +18,7 @@ namespace ProjetoDM106.Controllers
     {
         private ProjetoDM106Context db = new ProjetoDM106Context();
 
+        // GET: api/Order/byemail?email=email
         [Authorize]
         [ResponseType(typeof(Product))]
         [HttpGet]
@@ -29,6 +30,56 @@ namespace ProjetoDM106.Controllers
                 return Ok(order);
             }
             else {
+                return StatusCode(HttpStatusCode.Unauthorized);
+            }
+        }
+
+        // POST: api/Orders/recover?id=5
+        [Authorize]
+        [ResponseType(typeof(Order))]
+        [HttpPost]
+        [Route("recover")]
+        public IHttpActionResult PostRecoverOrder(int id)
+        {
+
+            Order pedido = db.Orders.Find(id);
+
+            if (pedido == null)
+            {
+                return NotFound();
+            }
+
+            if ((User.Identity.Name == pedido.userEmail) || User.IsInRole("ADMIN"))
+            {
+                Order pedidoModificado = db.Orders.Find(id);
+                if (pedidoModificado.Status.Equals("fechado") || pedidoModificado.Status.Equals("cancelado")) 
+                {
+                    pedidoModificado.Status = "novo";
+                    db.Entry(pedidoModificado).State = EntityState.Modified;
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!OrderExists(id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return Ok(pedidoModificado);
+                }
+                else
+                {
+                    return StatusCode(HttpStatusCode.BadRequest);
+                }
+            }
+            else
+            {
                 return StatusCode(HttpStatusCode.Unauthorized);
             }
         }
@@ -104,7 +155,6 @@ namespace ProjetoDM106.Controllers
             order.ItemPrice = 0;
             order.DateOrder = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")).ToLocalTime();
             order.userEmail = User.Identity.Name;
-
             db.Orders.Add(order);
             db.SaveChanges();
 
@@ -114,21 +164,42 @@ namespace ProjetoDM106.Controllers
         // POST: api/Orders/5
         [Authorize]
         [ResponseType(typeof(Order))]
-        public IHttpActionResult PostOrderStatus(int id, Order order)
+        public IHttpActionResult PostOrderStatus(int id)
         {
 
             Order pedido = db.Orders.Find(id);
 
-            if (order == null)
+            if (pedido == null)
             {
                 return NotFound();
+            }
+
+            if (pedido.precoFrete == 0)
+            {
+                return StatusCode(HttpStatusCode.BadRequest);
             }
 
             if ((User.Identity.Name == pedido.userEmail) || User.IsInRole("ADMIN"))
             {
                Order pedidoModificado = db.Orders.Find(id);
-                if (pedidoModificado.Status.Equals("cancelado")) {
-                    pedidoModificado.Status = "novo";
+                if (pedidoModificado.Status.Equals("novo") || pedidoModificado.Status.Equals("cancelado")) {
+                    pedidoModificado.Status = "fechado";
+                    db.Entry(pedidoModificado).State = EntityState.Modified;
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!OrderExists(id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
                     return Ok(pedidoModificado);
                 }
                 else
