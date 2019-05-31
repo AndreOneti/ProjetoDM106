@@ -20,13 +20,77 @@ namespace ProjetoDM106.Controllers
     {
         private ProjetoDM106Context db = new ProjetoDM106Context();
 
+        [Authorize]
+        [ResponseType(typeof(string))]
+        [HttpGet]
+        [Route("getfrete")]
+        public IHttpActionResult getFrete(int id)
+        {
+            Order pedido = db.Orders.Find(id);
+
+            if (pedido == null)
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+
+            if (pedido.Status != "novo")
+            {
+                return Content(HttpStatusCode.NotFound, " Pedido com status diferente de 'novo'");
+            }
+
+            if ((User.Identity.Name == pedido.userEmail) || User.IsInRole("ADMIN"))
+            {
+                var cep = this.ObtemCEP(pedido.userEmail).ToString();
+                if (cep == null)
+                {
+                    return Content(HttpStatusCode.NotFound, "Impossibilidade de acessar o serviço de CRM");
+                }
+                var list = pedido.OrderItems.ToList();
+                decimal altura = 0, comprimento = 0, diametro = 0, largura = 0, peso = 0, preco = 0;
+                int testlist = 0;
+                string pesoTotal;
+                foreach (var item in list)
+                {
+                    testlist += 1;
+                    if (altura < item.Product.altura)
+                        altura = item.Product.altura;
+                    if (comprimento < item.Product.comprimento)
+                        comprimento += item.Product.comprimento;
+                    if (diametro < item.Product.diametro)
+                        diametro += item.Product.diametro;
+                    largura += item.Product.largura;
+                    peso += item.Product.peso;
+                    preco += item.Product.preco;
+                }
+
+                if (testlist < 1)
+                {
+                    return Content(HttpStatusCode.NotFound, "Pedido sem itens");
+                }
+
+                pesoTotal = peso.ToString();
+                var frete = this.CalculaFrete(cep, pesoTotal, comprimento, altura,largura,diametro,preco);
+
+                if (frete == null)
+                {
+                    return Content(HttpStatusCode.NotFound, "Impossibilidade de acessar o serviço dos Correios");
+                }
+
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.Unauthorized);
+            }
+                return Ok();
+        }
+
         [ResponseType(typeof(string))]
         [HttpGet]
         [Route("cep")]
-        public IHttpActionResult ObtemCEP()
+        public IHttpActionResult ObtemCEP(string email)
         {
             CRMRestClient crmClient = new CRMRestClient();
-            Customer customer = crmClient.GetCustomerByEmail(User.Identity.Name);
+            Customer customer = crmClient.GetCustomerByEmail(email);
 
             if (customer != null)
             {
@@ -41,12 +105,12 @@ namespace ProjetoDM106.Controllers
         [ResponseType(typeof(string))]
         [HttpGet]
         [Route("frete")]
-        public IHttpActionResult CalculaFrete()
+        public IHttpActionResult CalculaFrete(string cep, string peso, decimal comprimento, decimal altura, decimal largura, decimal diametro, decimal preco)
         {
             string frete;
 
             CalcPrecoPrazoWS correios = new CalcPrecoPrazoWS();
-            cResultado resultado = correios.CalcPrecoPrazo("", "", "40010", "37540000", "37002970", "1", 1, 30, 30, 30, 30, "N", 100, "S");
+            cResultado resultado = correios.CalcPrecoPrazo("", "", "40010", "37540000", cep, peso, 1, comprimento, altura, largura, diametro, "N", preco, "S");
             if (resultado.Servicos[0].Erro.Equals("0"))
             {
                 frete = "Valor do frete: " + resultado.Servicos[0].Valor + " - Prazo de entrega: " + resultado.Servicos[0].PrazoEntrega + " dia(s)";
