@@ -69,19 +69,14 @@ namespace ProjetoDM106.Controllers
                 }
 
                 pesoTotal = peso.ToString();
-                var frete = this.CalculaFrete(cep, pesoTotal, comprimento, altura,largura,diametro,preco);
-
-                if (frete == null)
-                {
-                    return Content(HttpStatusCode.NotFound, "Impossibilidade de acessar o serviço dos Correios");
-                }
-
+                return (this.CalculaFrete(cep, pesoTotal, comprimento, altura, largura, diametro, preco, id));
+                 
             }
             else
             {
                 return StatusCode(HttpStatusCode.Unauthorized);
             }
-                return Ok();
+
         }
 
         [ResponseType(typeof(string))]
@@ -105,7 +100,7 @@ namespace ProjetoDM106.Controllers
         [ResponseType(typeof(string))]
         [HttpGet]
         [Route("frete")]
-        public IHttpActionResult CalculaFrete(string cep, string peso, decimal comprimento, decimal altura, decimal largura, decimal diametro, decimal preco)
+        public IHttpActionResult CalculaFrete(string cep, string peso, decimal comprimento, decimal altura, decimal largura, decimal diametro, decimal preco, int id)
         {
             string frete;
 
@@ -113,7 +108,25 @@ namespace ProjetoDM106.Controllers
             cResultado resultado = correios.CalcPrecoPrazo("", "", "40010", "37540000", cep, peso, 1, comprimento, altura, largura, diametro, "N", preco, "S");
             if (resultado.Servicos[0].Erro.Equals("0"))
             {
-                frete = "Valor do frete: " + resultado.Servicos[0].Valor + " - Prazo de entrega: " + resultado.Servicos[0].PrazoEntrega + " dia(s)";
+                frete = resultado.Servicos[0].Valor + "-" + resultado.Servicos[0].PrazoEntrega;
+                Order pedido = db.Orders.Find(id);
+                pedido.precoFrete = resultado.Servicos[0].Valor;
+                db.Entry(pedido).State = EntityState.Modified;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OrderExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return Ok(frete);
             }
             else
@@ -257,7 +270,7 @@ namespace ProjetoDM106.Controllers
 
             order.Status = "novo";
             order.ItemWeight = 0;
-            order.precoFrete = 0;
+            order.precoFrete = "0";
             order.ItemPrice = 0;
             order.DateOrder = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")).ToLocalTime();
             order.userEmail = User.Identity.Name;
@@ -280,7 +293,7 @@ namespace ProjetoDM106.Controllers
                 return NotFound();
             }
 
-            if (pedido.precoFrete == 0)
+            if (pedido.precoFrete == "0")
             {
                 return StatusCode(HttpStatusCode.BadRequest);
             }

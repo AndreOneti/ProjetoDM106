@@ -26,7 +26,7 @@ namespace ProjetoDM106.Models
 
         public float ItemWeight { get; set; }
 
-        public decimal precoFrete { get; set; }
+        public string precoFrete { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems{ get; set; }
     }
