@@ -8,6 +8,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using ProjetoDM106.br.com.correios.ws;
+using ProjetoDM106.CRMClient;
 using ProjetoDM106.Models;
 
 namespace ProjetoDM106.Controllers
@@ -18,6 +20,44 @@ namespace ProjetoDM106.Controllers
     {
         private ProjetoDM106Context db = new ProjetoDM106Context();
 
+        [ResponseType(typeof(string))]
+        [HttpGet]
+        [Route("cep")]
+        public IHttpActionResult ObtemCEP()
+        {
+            CRMRestClient crmClient = new CRMRestClient();
+            Customer customer = crmClient.GetCustomerByEmail(User.Identity.Name);
+
+            if (customer != null)
+            {
+                return Ok(customer.zip);
+            }
+            else
+            {
+                return BadRequest("Falha ao consultar o CRM");
+            }
+        }
+
+        [ResponseType(typeof(string))]
+        [HttpGet]
+        [Route("frete")]
+        public IHttpActionResult CalculaFrete()
+        {
+            string frete;
+
+            CalcPrecoPrazoWS correios = new CalcPrecoPrazoWS();
+            cResultado resultado = correios.CalcPrecoPrazo("", "", "40010", "37540000", "37002970", "1", 1, 30, 30, 30, 30, "N", 100, "S");
+            if (resultado.Servicos[0].Erro.Equals("0"))
+            {
+                frete = "Valor do frete: " + resultado.Servicos[0].Valor + " - Prazo de entrega: " + resultado.Servicos[0].PrazoEntrega + " dia(s)";
+                return Ok(frete);
+            }
+            else
+            {
+                return BadRequest("Código do erro: " + resultado.Servicos[0].Erro + "-" + resultado.Servicos[0].MsgErro);
+            }
+        }
+
         // GET: api/Order/byemail?email=email
         [Authorize]
         [ResponseType(typeof(Product))]
@@ -25,11 +65,13 @@ namespace ProjetoDM106.Controllers
         [Route("byemail")]
         public IHttpActionResult GetProductByEmail(string email)
         {
-            if ((User.Identity.Name == email) || User.IsInRole("ADMIN")) {
+            if ((User.Identity.Name == email) || User.IsInRole("ADMIN"))
+            {
                 var order = db.Orders.Where(o => o.userEmail == email).ToList();
                 return Ok(order);
             }
-            else {
+            else
+            {
                 return StatusCode(HttpStatusCode.Unauthorized);
             }
         }
@@ -52,7 +94,7 @@ namespace ProjetoDM106.Controllers
             if ((User.Identity.Name == pedido.userEmail) || User.IsInRole("ADMIN"))
             {
                 Order pedidoModificado = db.Orders.Find(id);
-                if (pedidoModificado.Status.Equals("fechado") || pedidoModificado.Status.Equals("cancelado")) 
+                if (pedidoModificado.Status.Equals("fechado") || pedidoModificado.Status.Equals("cancelado"))
                 {
                     pedidoModificado.Status = "novo";
                     db.Entry(pedidoModificado).State = EntityState.Modified;
@@ -181,8 +223,9 @@ namespace ProjetoDM106.Controllers
 
             if ((User.Identity.Name == pedido.userEmail) || User.IsInRole("ADMIN"))
             {
-               Order pedidoModificado = db.Orders.Find(id);
-                if (pedidoModificado.Status.Equals("novo") || pedidoModificado.Status.Equals("cancelado")) {
+                Order pedidoModificado = db.Orders.Find(id);
+                if (pedidoModificado.Status.Equals("novo") || pedidoModificado.Status.Equals("cancelado"))
+                {
                     pedidoModificado.Status = "fechado";
                     db.Entry(pedidoModificado).State = EntityState.Modified;
                     try
@@ -217,7 +260,7 @@ namespace ProjetoDM106.Controllers
         [ResponseType(typeof(Order))]
         public IHttpActionResult DeleteOrder(int id)
         {
-            
+
             Order order = db.Orders.Find(id);
             if (order == null)
             {
