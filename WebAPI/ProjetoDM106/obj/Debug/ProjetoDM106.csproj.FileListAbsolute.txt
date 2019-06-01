@@ -136,3 +136,4 @@ C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.TesteMigration.resources
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.ArrumandoTudoEuAcho.resources
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.QuasePronto.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.Final.resources

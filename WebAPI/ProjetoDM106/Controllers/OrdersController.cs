@@ -116,7 +116,9 @@ namespace ProjetoDM106.Controllers
                 frete = "Valor do frete: " + resultado.Servicos[0].Valor + " - Prazo de entrega: " + resultado.Servicos[0].PrazoEntrega + " dia(s)";
                 Order pedido = db.Orders.Find(id);
                 pedido.precoFrete = resultado.Servicos[0].Valor;
-                pedido.DateDelivery = resultado.Servicos[0].PrazoEntrega + " Dias apartir de " + TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")).ToLocalTime().ToString();
+                pedido.DateDelivery = Convert.ToString(pedido.DateOrder.AddDays(Convert.ToInt32(resultado.Servicos[0].PrazoEntrega)));
+                pedido.ItemPrice = Convert.ToSingle(preco);
+                pedido.ItemWeight = Convert.ToSingle(peso);
                 db.Entry(pedido).State = EntityState.Modified;
                 try
                 {
@@ -226,7 +228,14 @@ namespace ProjetoDM106.Controllers
                 return NotFound();
             }
 
-            return Ok(order);
+            if ((User.Identity.Name == order.userEmail) || User.IsInRole("ADMIN"))
+            {
+                return Ok(order);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.Unauthorized);
+            }
         }
 
         // PUT: api/Orders/5
