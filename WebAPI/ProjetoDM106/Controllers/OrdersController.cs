@@ -19,7 +19,9 @@ namespace ProjetoDM106.Controllers
     public class OrdersController : ApiController
     {
         private ProjetoDM106Context db = new ProjetoDM106Context();
+        string meuCep;
 
+        // GET: api/Order/getfrete?id=1
         [Authorize]
         [ResponseType(typeof(string))]
         [HttpGet]
@@ -69,7 +71,7 @@ namespace ProjetoDM106.Controllers
                 }
 
                 pesoTotal = peso.ToString();
-                return (this.CalculaFrete(cep, pesoTotal, comprimento, altura, largura, diametro, preco, id));
+                return (this.CalculaFrete(meuCep, pesoTotal, comprimento, altura, largura, diametro, preco, id));
                  
             }
             else
@@ -79,6 +81,7 @@ namespace ProjetoDM106.Controllers
 
         }
 
+        // GET: api/Order/cep?email=email
         [ResponseType(typeof(string))]
         [HttpGet]
         [Route("cep")]
@@ -89,6 +92,7 @@ namespace ProjetoDM106.Controllers
 
             if (customer != null)
             {
+                meuCep = customer.zip;
                 return Ok(customer.zip);
             }
             else
@@ -97,6 +101,7 @@ namespace ProjetoDM106.Controllers
             }
         }
 
+        // GET: api/Order/frete?id=1&cep=37540000&peso=20&comprimento=20&altura=20&largura=20&diametro=20&preco=20
         [ResponseType(typeof(string))]
         [HttpGet]
         [Route("frete")]
@@ -108,9 +113,10 @@ namespace ProjetoDM106.Controllers
             cResultado resultado = correios.CalcPrecoPrazo("", "", "40010", "37540000", cep, peso, 1, comprimento, altura, largura, diametro, "N", preco, "S");
             if (resultado.Servicos[0].Erro.Equals("0"))
             {
-                frete = resultado.Servicos[0].Valor + "-" + resultado.Servicos[0].PrazoEntrega;
+                frete = "Valor do frete: " + resultado.Servicos[0].Valor + " - Prazo de entrega: " + resultado.Servicos[0].PrazoEntrega + " dia(s)";
                 Order pedido = db.Orders.Find(id);
                 pedido.precoFrete = resultado.Servicos[0].Valor;
+                pedido.DateDelivery = resultado.Servicos[0].PrazoEntrega + " Dias apartir de " + TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")).ToLocalTime().ToString();
                 db.Entry(pedido).State = EntityState.Modified;
                 try
                 {
@@ -273,6 +279,7 @@ namespace ProjetoDM106.Controllers
             order.precoFrete = "0";
             order.ItemPrice = 0;
             order.DateOrder = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")).ToLocalTime();
+            order.DateDelivery = "";
             order.userEmail = User.Identity.Name;
             db.Orders.Add(order);
             db.SaveChanges();

@@ -24,7 +24,7 @@ namespace ProjetoDM106.Models
         [StringLength(8, ErrorMessage = "O tamanho máximo do código é 8 caracteres")]
         public string codigo { get; set; }
 
-        [Range(10, 999, ErrorMessage = "O preço deverá ser entre 10 e 999.")]
+        [Range(20, 9999, ErrorMessage = "O preço deverá ser entre 10 e 999.")]
         public decimal preco { get; set; }
 
         public decimal peso { get; set; }

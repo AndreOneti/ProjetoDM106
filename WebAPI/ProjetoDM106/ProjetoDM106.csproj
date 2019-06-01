@@ -245,6 +245,18 @@
     <Compile Include="Migrations\201905251955045_OrderUpdate.Designer.cs">
       <DependentUpon>201905251955045_OrderUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906010005231_TesteMigration.cs" />
+    <Compile Include="Migrations\201906010005231_TesteMigration.Designer.cs">
+      <DependentUpon>201906010005231_TesteMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906010029511_ArrumandoTudoEuAcho.cs" />
+    <Compile Include="Migrations\201906010029511_ArrumandoTudoEuAcho.Designer.cs">
+      <DependentUpon>201906010029511_ArrumandoTudoEuAcho.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906010053035_QuasePronto.cs" />
+    <Compile Include="Migrations\201906010053035_QuasePronto.Designer.cs">
+      <DependentUpon>201906010053035_QuasePronto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -403,6 +415,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905251955045_OrderUpdate.resx">
       <DependentUpon>201905251955045_OrderUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906010005231_TesteMigration.resx">
+      <DependentUpon>201906010005231_TesteMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906010029511_ArrumandoTudoEuAcho.resx">
+      <DependentUpon>201906010029511_ArrumandoTudoEuAcho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906010053035_QuasePronto.resx">
+      <DependentUpon>201906010053035_QuasePronto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

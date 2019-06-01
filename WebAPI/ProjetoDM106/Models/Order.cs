@@ -18,7 +18,7 @@ namespace ProjetoDM106.Models
 
         public DateTime DateOrder { get; set; }
 
-        public DateTime DateDelivery { get; set; }
+        public string DateDelivery { get; set; }
 
         public string Status { get; set; }
 

@@ -133,3 +133,6 @@ C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.OrderItemAndOrderUpdate.resources
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.OrderUpdate.resources
 C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.csprojAssemblyReference.cache
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.TesteMigration.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.ArrumandoTudoEuAcho.resources
+C:\Users\André\Desktop\ProjetoDM106\WebAPI\ProjetoDM106\obj\Debug\ProjetoDM106.Migrations.QuasePronto.resources

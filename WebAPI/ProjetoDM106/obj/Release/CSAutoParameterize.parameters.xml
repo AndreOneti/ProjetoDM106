@@ -6,4 +6,7 @@
   <parameter name="ProjetoDM106Context-Web.config Connection String" description="ProjetoDM106Context A Cadeia de Conexão usada em web.config pelo aplicativo para acessar o banco de dados." defaultValue="Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=ProjetoDM106Context-20190520023616; Integrated Security=True; MultipleActiveResultSets=True; AttachDbFilename=|DataDirectory|ProjetoDM106Context-20190520023616.mdf" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Users\\André\\Desktop\\ProjetoDM106\\WebAPI\\ProjetoDM106\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ProjetoDM106Context']/@connectionString" />
   </parameter>
+  <parameter name="ProjetoDM106Context_DatabasePublish-Web.config Connection String" description="ProjetoDM106Context_DatabasePublish A Cadeia de Conexão usada em web.config pelo aplicativo para acessar o banco de dados." defaultValue="ProjetoDM106Context_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\André\\Desktop\\ProjetoDM106\\WebAPI\\ProjetoDM106\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ProjetoDM106Context_DatabasePublish']/@connectionString" />
+  </parameter>
 </parameters>
